@@ -1,0 +1,13 @@
+-- PROPOSTA SOLTANTO - NON ESEGUIRE SENZA REVISIONE E APPROVAZIONE DELL'AMMINISTRATORE.
+-- Questa bozza non viene applicata dall'app e non disabilita RLS.
+-- Prima di usarla verificare i nomi reali delle colonne e l'esistenza delle policy attuali.
+
+-- Esempio di policy strettamente per il proprietario autenticato.
+-- Sostituire <table_name> e <user_id_column> solo dopo verifica dello schema.
+-- create policy "Users can insert own records" on public.<table_name>
+--   for insert to authenticated
+--   with check (auth.uid() = <user_id_column>);
+-- create policy "Users can update own records" on public.<table_name>
+--   for update to authenticated
+--   using (auth.uid() = <user_id_column>)
+--   with check (auth.uid() = <user_id_column>);
